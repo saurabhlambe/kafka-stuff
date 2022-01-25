@@ -1,6 +1,5 @@
 # Kafka stuff
 
-`learning` `kafka` `API`
 
 * Command to verify network ports:
 
@@ -10,8 +9,8 @@ Connection to localhost port 2181 [tcp/eforward] succeeded!
 ```
 
 * Properties files:
-    * Kafka: 
-    * Zookeeper: 
+    * Kafka: `server.properties`
+    * Zookeeper: `zookeeper.properties`
 * Create topic:
 
 ```
@@ -86,13 +85,13 @@ how are you?
 ```
 
 * Consumers in groups:
-    * Run 3 consumer groups while producing from a single producer:
+** Run 3 consumer groups while producing from a single producer:
 
 ```
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_topic --group my-app
 ```
 
-    * Now turn of all consumers and continue producing messages:
+** Now turn of all consumers and continue producing messages:
 
 ```
 kafka-console-producer.sh --broker-list localhost:9092 --topic second_new_topic
