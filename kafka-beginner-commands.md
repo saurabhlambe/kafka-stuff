@@ -90,13 +90,11 @@ how are you?
 ```
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_topic --group my-app
 ```
-
     * Now turn of all consumers and continue producing messages:
 
 ```
 kafka-console-producer.sh --broker-list localhost:9092 --topic second_new_topic
 ```
-
     * Again, start a new consumer group:
 
 ```
