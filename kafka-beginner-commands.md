@@ -87,8 +87,7 @@ how are you?
 * Consumers in groups:
     * Run 3 consumer groups while producing from a single producer:
 
-```
-kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_topic --group my-app```
+```kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_topic --group my-app```
     * Now turn of all consumers and continue producing messages:
 
 ```
