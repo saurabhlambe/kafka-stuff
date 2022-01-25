@@ -1,7 +1,7 @@
 # Kafka stuff
 
 
-* Command to verify network ports:
+#### 1. Command to verify network ports:
 
 ```
 ➜ nc -v -z localhost 2181
