@@ -1,29 +1,32 @@
 # Kafka stuff
 
+Reference document:
+https://docs.confluent.io/platform/current/installation/configuration
 
-#### 1. Command to verify network ports:
+
+#### 1. Command to verify network ports
 
 ```
 ➜ nc -v -z localhost 2181
 Connection to localhost port 2181 [tcp/eforward] succeeded!
 ```
 
-#### 2. Properties files:
+#### 2. Properties files
     * Kafka: `server.properties`
     * Zookeeper: `zookeeper.properties`
-#### 3. Create topic:
+#### 3. Create topic
 
 ```
 kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --create --partitions 3 --replication-factor 1
 ```
 
-#### 4. List topic:
+#### 4. List topic
 
 ```
 kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --create --partitions 3 --replication-factor 1
 ```
 
-#### 5. Describe a topic:
+#### 5. Describe a topic
 
 ```
 kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --describe
@@ -40,7 +43,7 @@ Topic: first_topic	TopicId: fBTBdhOsQomnLt6s1wDbtw	PartitionCount: 3	Replication
 kafka-topics.sh --bootstrap-server localhost:9092 --topic second_topic --delete
 ```
 
-#### 7. Produce to a topic:
+#### 7. Produce to a topic
 
 ```
 kafka-console-producer.sh --broker-list localhost:9092 --topic first_topic
@@ -50,7 +53,7 @@ kafka-console-producer.sh --broker-list localhost:9092 --topic first_topic
 CTRL+C
 ```
 
-#### 8. Produce to a non\-existent topic:
+#### 8. Produce to a non\-existent topic
 
 ```
 kafka-console-producer.sh --broker-list localhost:9092 --topic second_new_topic
@@ -65,13 +68,13 @@ kafka-console-producer.sh --broker-list localhost:9092 --topic second_new_topic
 >^C%
 ```
 
-#### 9. Consume in real time:
+#### 9. Consume in real time
 
 ```
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_topic
 ```
 
-#### 10. Consume from beginning from a topic:
+#### 10. Consume from beginning from a topic
 
 ```
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_topic --from-beginning
@@ -84,7 +87,7 @@ how are you?
 僕はサウラブと申します。インド人です。
 ```
 
-#### 11. Consumers in groups:
+#### 11. Consumers in groups
 ##### i. Run 3 consumer groups while producing from a single producer:
 
 ```
@@ -103,7 +106,7 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic second_new_t
 
 Observe that all the messages appended after closing the consumer groups will appear in the newly created consumer group. But not the ones from beginning.
 
-#### 12. Resetting offsets:
+#### 12. Resetting offsets
 
 ```
 kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-app --topic second_new_topic --reset-offsets --to-earliest --execute
@@ -114,7 +117,7 @@ my-app                         second_new_topic              
 my-app                         second_new_topic               2          0
 ```
 
-#### 13. Verify current lag:
+#### 13. Verify current lag
 
 ```
 kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-app
@@ -127,7 +130,7 @@ my-app          second_new_topic 1          0               15�
 my-app          second_new_topic 2          0               10              10              -               -               -
 ```
 
-#### 14. Re\-start the consumer:
+#### 14. Re\-start the consumer
 
 ```
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --group my-app --topic second_new_topic
@@ -158,7 +161,7 @@ the
 is
 ```
 
-#### 15. Verify that the lag is again back to zero:
+#### 15. Verify that the lag is again back to zero
 
 ```
 kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-app
@@ -170,3 +173,14 @@ my-app          second_new_topic 0          20              20�
 my-app          second_new_topic 1          15              15              0               -               -               -
 my-app          second_new_topic 2          10              10              0               -               -               -
 ```
+
+#### 16. Describe topic configs
+```
+kafka-configs --bootstrap-server localhost:9092 --entity-type topics --entity-name second_new_topic --describe --all
+```
+
+#### 17. Alter/change topic configs
+```
+kafka-configs --bootstrap-server localhost:9092 --entity-type topics --entity-name second_new_topic --alter --add-config retention.ms=1209600000
+```
+This command will set the message retention of a topic to 14 days.
