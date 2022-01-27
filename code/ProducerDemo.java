@@ -1,3 +1,5 @@
+// This code will produce a single line of message to the topic 'first_topic'
+
 package com.github.simple;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
